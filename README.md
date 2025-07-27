@@ -2,9 +2,6 @@
 
 **অন্বেষা** is a modern Bengali search engine web application that empowers users with fast, intuitive, and bilingual search capabilities. Built for the future of Bengali-language information access, অন্বেষা blends technology and typography to deliver an elegant and responsive user experience.
 
-<img width="1702" height="860" alt="image" src="https://github.com/user-attachments/assets/86107959-038e-44b0-893d-3319fa7b418c" />
-
-
 ## 🚀 Tech Stack
 
 This project is built using:
@@ -26,9 +23,6 @@ This project is built using:
 - Fully responsive design with Bengali typography support
 - Dynamic search using external APIs via Axios and RapidAPI
 - Gradient borders, modern UI animations, and accessible layout
-
-  <img width="1517" height="860" alt="image" src="https://github.com/user-attachments/assets/036fe0e5-e2f6-426e-b56e-d5616e57ac37" />
-
 
 ## 🤝 Contributing
 

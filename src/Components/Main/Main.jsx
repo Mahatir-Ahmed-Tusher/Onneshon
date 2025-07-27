@@ -13,7 +13,7 @@ const LanguageContext = createContext();
 export const useLanguage = () => {
   const context = useContext(LanguageContext);
   if (!context) {
-    return { language: 'bn', getText: (bn) => bn };
+    return { language: 'bn', getText: (bn) => bn, setLanguage: () => {} };
   }
   return context;
 };
@@ -23,13 +23,18 @@ const Main = () => {
   const [sendDataParam, setSendDataParam] = useState([]);
   const [Loading, setLoading] = useState(false);
   const [language, setLanguage] = useState('bn');
+  const [hasSearched, setHasSearched] = useState(false);
 
   const getText = (bnText, enText) => {
     return language === 'bn' ? bnText : enText;
   };
 
   const sendData = async () => {
+    if (!currentInput.trim()) return;
+    
     setLoading(true);
+    setHasSearched(true);
+    
     const url = "https://google-web-search1.p.rapidapi.com/";
     const options = {
       method: "GET",
@@ -44,10 +49,10 @@ const Main = () => {
         "X-RapidAPI-Host": "google-web-search1.p.rapidapi.com",
       },
     };
+    
     try {
       const response = await axios.request(options);
       setSendDataParam(response?.data);
-      //   console.log(response.data);
     } catch (error) {
       console.error(error);
     }
@@ -56,49 +61,65 @@ const Main = () => {
 
   return (
     <LanguageContext.Provider value={{ language, getText, setLanguage }}>
-    <main>
-      <div className="innerMain">
-        <div className="img" style={{ maxWidth: "700px", margin: "0 auto" }}>
-          <img src={IMg} alt="" style={{ width: "600%", height: "auto", maxWidth: "250px" }} />
+      <main className="main-container">
+        <div className={`search-section ${hasSearched ? 'compact' : 'centered'}`}>
+          {!hasSearched && (
+            <div className="hero-section">
+              <div className="hero-logo" style={{ display: "flex", justifyContent: "center", alignItems: "center", width: "100%" }}>
+                <img src={IMg} alt="Search Engine Logo" style={{ width: 240, height: 240, objectFit: "contain" }} />
+              </div>
+              <h1 className="hero-title">
+                {getText('যেকোনো কিছু খুঁজুন আপনারই', 'Search in Your Own')} 
+                <span className="gradient-text"> {getText('মাতৃভাষায়', 'Language')}</span>
+              </h1>
+              <p className="hero-subtitle">
+                {getText('দ্রুত, নির্ভুল এবং বিস্তৃত অনুসন্ধান', 'Fast, Accurate, and Comprehensive Search')}
+              </p>
+            </div>
+          )}
+
+          <div className="search-container">
+            <div className="search-box">
+              <i className="ri-search-line search-icon" />
+              <input
+                type="text"
+                placeholder={getText('কীওয়ার্ড, বিষয় কিংবা যেকোনো প্রশ্ন', 'Search for Keywords, Topics, and Ideas')}
+                className="search-input"
+                autoComplete="off"
+                spellCheck="false"
+                autoCorrect="off"
+                value={currentInput}
+                onChange={(e) => setCurrentInput(e.target.value)}
+                onKeyUp={(e) => {
+                  if (e.key === "Enter") {
+                    sendData();
+                  }
+                }}
+              />
+              <button className="search-btn" onClick={sendData} disabled={!currentInput.trim()}>
+                <i className="ri-send-plane-2-line" />
+              </button>
+            </div>
+          </div>
         </div>
 
-        <p className="title">
-          {getText('যেকোনো কিছু খুঁজুন আপনারই', 'Search in Your Own')} <span>{getText('মাতৃভাষায়', 'Language')}</span>
-        </p>
-
-        <div className="input-container">
-          <i className="ri-search-line" />
-          <input
-            type="text"
-            placeholder={getText('কীওয়ার্ড, বিষয় কিংবা যেকোনো প্রশ্ন', 'Search for Keywords, Topics, and Ideas')}
-            className="input"
-            autoComplete="off"
-            spellCheck="false"
-            autoCorrect="off"
-            value={currentInput}
-            onChange={(e) => setCurrentInput(e.target.value)}
-            onKeyUp={(e) => {
-              if (e.key === "Enter") {
-                sendData();
-              }
-            }}
-          />
-          <i className="ri-send-plane-2-line" onClick={sendData} />
+        <div className="results-section">
+          {Loading ? (
+            <div className="loading-container">
+              <PacmanLoader color="#8b5cf6" size={20} />
+              <p className="loading-text">
+                {getText('অনুসন্ধান করা হচ্ছে...', 'Searching...')}
+              </p>
+            </div>
+          ) : (
+            <>
+              <MainData sendDataParam={sendDataParam} />
+              <MoreResults sendDataParam={sendDataParam} />
+              <RelatedKeyWord sendDataParam={sendDataParam} />
+            </>
+          )}
         </div>
-      </div>
-
-      {Loading ? (
-        <div className="loading">
-          <PacmanLoader color="#8b5cf6" />
-        </div>
-      ) : (
-        <>
-          <MainData sendDataParam={sendDataParam} />
-          <MoreResults sendDataParam={sendDataParam} />
-          <RelatedKeyWord sendDataParam={sendDataParam} />
-        </>
-      )}
-    </main>
+      </main>
     </LanguageContext.Provider>
   );
 };

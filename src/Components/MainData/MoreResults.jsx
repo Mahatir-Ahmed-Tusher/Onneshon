@@ -3,43 +3,61 @@ import PropTypes from "prop-types";
 import { useLanguage } from "../Main/Main";
 
 const MoreResults = ({ sendDataParam }) => {
-  MoreResults.propTypes = {
-    sendDataParam: PropTypes.any.isRequired,
-  };
-  
   const { getText } = useLanguage();
 
+  if (!sendDataParam?.results?.length) return null;
+
   return (
-    <div className="MainData-MoreResults-container">
-      <h3 className="Heading">
-        {sendDataParam?.results?.length ? getText('আরও বিস্তারিত ফলাফল', 'More Results') : ""}
-      </h3>
-      <div className="MainData-MoreResults-container-content">
-        {sendDataParam?.results?.map((result, key) => {
-          return (
-            <div key={key} className="MainData-MoreResults">
-              <p className="title-more-results" title={getText('শিরোনাম', 'Title')}>
-                {result?.title}
-              </p>
-              <p className="description-more-results" title={getText('বিবরণ', 'Description')}>
+    <div className="more-results-section">
+      <div className="section-header">
+        <h2 className="section-title">
+          {getText('আরও ফলাফল', 'Search Results')}
+        </h2>
+        <p className="results-count">
+          {getText(`${sendDataParam.results.length}টি ফলাফল পাওয়া গেছে`, `${sendDataParam.results.length} results found`)}
+        </p>
+      </div>
+      
+      <div className="results-grid">
+        {sendDataParam.results.map((result, index) => (
+          <article key={index} className="result-card">
+            <div className="result-content">
+              <h3 className="result-title">
+                <a href={result?.url} target="_blank" rel="noreferrer">
+                  {result?.title}
+                </a>
+              </h3>
+              
+              <p className="result-description">
                 {result?.description}
               </p>
-              <button className="button-more-results" title={result?.url}>
+              
+              <div className="result-footer">
+                <div className="result-url">
+                  <i className="ri-external-link-line"></i>
+                  <span>{new URL(result?.url).hostname}</span>
+                </div>
+                
                 <a
-                  className="link-more-results"
                   href={result?.url}
                   target="_blank"
                   rel="noreferrer"
+                  className="result-link"
                 >
-                  {getText('আরও বিষয়বস্তু পান', 'Get More Content')}
+                  {getText('পড়ুন', 'Read More')}
+                  <i className="ri-arrow-right-line"></i>
                 </a>
-              </button>
+              </div>
             </div>
-          );
-        })}
+          </article>
+        ))}
       </div>
     </div>
   );
+};
+
+MoreResults.propTypes = {
+  sendDataParam: PropTypes.any.isRequired,
 };
 
 export default MoreResults;

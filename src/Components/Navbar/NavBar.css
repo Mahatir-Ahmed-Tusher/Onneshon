@@ -1,52 +1,148 @@
-nav {
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(139, 92, 246, 0.1);
+  box-shadow: 0 2px 20px rgba(139, 92, 246, 0.08);
+}
+
+.navbar-container {
+  max-width: 1200px;
+  margin: 0 auto;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-top: 1rem;
-  position: relative;
+  padding: 1rem 2rem;
 }
 
-.language-toggle {
-  position: absolute;
-  left: 0;
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-.lang-btn {
-  background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
-  color: white;
-  border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 20px;
-  font-family: 'Hind Siliguri', sans-serif;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 2px 8px rgba(139, 92, 246, 0.3);
-}
-
-.lang-btn:hover {
-  background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(139, 92, 246, 0.4);
+.brand-container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex: 1;
+  justify-content: flex-start;
 }
 
 .brand-name {
   font-weight: 700;
-  font-size: 1.5rem;
-  margin: 0 1rem;
-  color: #4c1d95;
-  cursor: pointer;
+  font-size: 1.8rem;
+  color: transparent;
   background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
   -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
   background-clip: text;
+  font-family: 'Hind Siliguri', sans-serif;
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
 
 .brand-name:hover {
   background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
   -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
   background-clip: text;
+  transform: scale(1.05);
+}
+
+.language-toggle {
+  flex-shrink: 0;
+}
+
+/* Toggle Switch Styles from Uiverse.io */
+.switch {
+  font-size: 17px;
+  position: relative;
+  display: inline-block;
+  width: 62px;
+  height: 35px;
+  font-family: 'Hind Siliguri', 'Inter', sans-serif;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, #e2e8f0 0%, #f1f5f9 100%);
+  transition: .4s;
+  border-radius: 30px;
+  border: 1px solid #ccc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 1.9em;
+  width: 1.9em;
+  border-radius: 16px;
+  left: 1.2px;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: white;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+  border: 1px solid transparent;
+}
+
+input:checked + .slider:before {
+  transform: translateX(1.5em) translateY(-50%);
+}
+
+.language-text {
+  position: absolute;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #1f2937;
+  transition: color 0.4s ease;
+  pointer-events: none;
+}
+
+input:checked + .slider .language-text {
+  color: white;
+}
+
+@media screen and (max-width: 768px) {
+  .navbar-container {
+    padding: 0.75rem 1rem;
+  }
+  
+  .brand-name {
+    font-size: 1.4rem;
+  }
+  
+  .switch {
+    font-size: 15px;
+    width: 56px;
+    height: 32px;
+  }
+  
+  .slider:before {
+    height: 1.7em;
+    width: 1.7em;
+  }
+  
+  input:checked + .slider:before {
+    transform: translateX(1.4em) translateY(-50%);
+  }
+  
+  .language-text {
+    font-size: 0.8rem;
+  }
 }

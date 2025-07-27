@@ -1,119 +1,369 @@
-main {
-  position: relative;
+.main-container {
   width: 100%;
-  height: 100%;
-  margin-top: 5rem;
+  min-height: 100vh;
+  padding-top: 0;
+  background: #ffffff; /* Pure white like Google */
 }
 
-.innerMain {
+.search-section {
+  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.search-section.centered {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem;
+  min-height: 100vh;
+  padding: 2rem;
+  transform: translateY(-80px); /* Move up slightly like Google */
 }
 
-.title {
-  font-size: 2rem;
-  font-weight: 500;
-  color: #4c1d95;
+.search-section.compact {
+  padding: 1rem 2rem;
+  background: white;
+  border-bottom: 1px solid #e8eaed; /* Google's border color */
+  box-shadow: none;
+}
+
+.hero-section {
   text-align: center;
-  margin-bottom: 1rem;
+  margin-bottom: 2rem;
+  animation: fadeInUp 0.8s ease-out;
+  max-width: 600px;
 }
 
-.title > span {
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hero-logo {
+  margin-bottom: 1.5rem;
+}
+
+.hero-logo img {
+  width: 180px; /* Google logo size */
+  height: 180px;
+  object-fit: contain;
+  animation: none; /* Remove floating animation for Google-like simplicity */
+  filter: none; /* Remove shadow for cleaner look */
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+}
+
+.hero-title {
+  font-size: 2.8rem;
+  font-weight: 400; /* Google uses lighter font weight */
+  color: #202124; /* Google's text color */
+  margin-bottom: 0.5rem;
+  font-family: 'Hind Siliguri', sans-serif;
+  line-height: 1.2;
+}
+
+.gradient-text {
   background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  font-weight: 600;
+  filter: drop-shadow(0 2px 4px rgba(139, 92, 246, 0.1));
 }
 
-.input-container {
+.hero-subtitle {
+  font-size: 1rem;
+  color: #5f6368; /* Google's secondary text color */
+  font-weight: 400;
+  margin-bottom: 2rem;
+}
+
+.search-container {
+  width: 100%;
+  max-width: 584px; /* Google's search box width */
+  margin: 0 auto;
+}
+
+.search-box {
   position: relative;
-  width: 50%;
-  height: 3rem;
+  width: 100%;
+  background: white;
+  border-radius: 24px; /* Google's border radius */
+  box-shadow: 0 2px 5px 1px rgba(64,60,67,.16); /* Google's exact shadow */
+  border: 1px solid #dfe1e5; /* Google's border */
+  transition: all 0.2s ease-in-out;
+  overflow: hidden;
+}
+
+.search-box:hover {
+  box-shadow: 0 2px 8px 1px rgba(64,60,67,.24); /* Google's hover shadow */
+  border-color: rgba(223,225,229,0);
+}
+
+.search-box:focus-within {
+  box-shadow: 0 2px 8px 1px rgba(64,60,67,.24);
+  border-color: rgba(223,225,229,0);
+}
+
+.search-icon {
+  position: absolute;
+  left: 14px; /* Google's icon position */
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.25rem;
+  color: #9aa0a6; /* Google's icon color */
+  z-index: 2;
+}
+
+.search-input {
+  width: 100%;
+  height: 44px; /* Google's search box height */
+  padding: 0 52px 0 46px; /* Google's padding */
+  border: none;
+  outline: none;
+  font-size: 16px; /* Google's font size */
+  font-weight: 400;
+  color: #202124; /* Google's text color */
+  background: transparent;
+  font-family: 'Hind Siliguri', Arial, sans-serif;
+}
+
+.search-input::placeholder {
+  color: #9aa0a6; /* Google's placeholder color */
+  font-weight: 400;
+}
+
+.search-btn {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 28px; /* Smaller like Google */
+  height: 28px;
+  border: none;
+  border-radius: 50%;
+  background: #4285f4; /* Google blue */
+  color: white;
+  cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: all 0.2s ease-in-out;
+  opacity: 0.8;
 }
 
-.input {
-  position: relative;
-  width: 100%;
-  height: 3rem;
-  padding: 0.5rem;
-  outline: none;
-  border-radius: 1.5rem;
-  border: 2px solid transparent;
-  background: linear-gradient(white, white) padding-box,
-              linear-gradient(135deg, #8b5cf6, #7c3aed) border-box;
-  font-size: 1rem;
-  font-weight: 500;
-  color: #374151;
-  transition: placeholder 0.5s ease;
-  cursor: text;
-  box-shadow: 0 4px 20px rgba(139, 92, 246, 0.15);
-  caret-color: #8b5cf6;
-  padding-left: 3rem;
-}
-
-.input:focus {
-  box-shadow: 0 8px 30px rgba(139, 92, 246, 0.25);
-  transform: translateY(-2px);
-}
-
-.input::placeholder {
-  font-size: 1rem;
-  font-weight: 500;
-  color: #9ca3af;
-}
-
-.ri-search-line {
-  position: absolute;
-  z-index: 2;
-  top: 50%;
-  left: 1rem;
-  transform: translateY(-50%);
-  font-size: 1.5rem;
-  color: #8b5cf6;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.ri-send-plane-2-line {
-  position: absolute;
-  top: 50%;
-  right: 1rem;
-  transform: translateY(-50%);
-  font-size: 1.5rem;
-  color: #8b5cf6;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.ri-search-line:hover,
-.ri-send-plane-2-line:hover {
-  color: #7c3aed;
+.search-btn:hover:not(:disabled) {
+  background: #1a73e8; /* Google's hover blue */
+  opacity: 1;
   transform: translateY(-50%) scale(1.1);
 }
 
-.loading {
-  margin: 2rem auto;
+.search-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.search-btn i {
+  font-size: 0.9rem;
+}
+
+.results-section {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.loading-container {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
+  justify-content: center;
+  padding: 4rem 2rem;
+  text-align: center;
+}
+
+.loading-text {
+  margin-top: 1.5rem;
+  font-size: 1.1rem;
+  color: #64748b;
+  font-weight: 500;
+}
+
+/* Enhanced Mobile Responsiveness */
+@media screen and (max-width: 1024px) {
+  .hero-title {
+    font-size: 3rem;
+  }
+  
+  .hero-logo img {
+    width: 160px;
+    height: 160px;
+  }
+  
+  .search-container {
+    max-width: 95%;
+  }
 }
 
 @media screen and (max-width: 768px) {
-  .input-container {
-    width: 90%;
+  .search-section.centered {
+    transform: translateY(-40px);
+    padding: 1rem;
   }
-  .title {
-    font-size: 1.5rem;
-    text-align: center;
+  
+  .hero-title {
+    font-size: 2.2rem;
+    margin-bottom: 0.5rem;
   }
-  nav {
-    display: none;
+  
+  .hero-subtitle {
+    font-size: 0.9rem;
+    margin-bottom: 1.5rem;
   }
+  
+  .hero-logo img {
+    width: 120px;
+    height: 120px;
+  }
+  
+  .search-container {
+    max-width: 95%;
+  }
+  
+  .search-input {
+    height: 40px;
+    font-size: 14px;
+    padding: 0 40px 0 40px;
+  }
+  
+  .search-icon {
+    left: 12px;
+    font-size: 1.1rem;
+  }
+  
+  .search-btn {
+    width: 24px;
+    height: 24px;
+    right: 8px;
+  }
+  
+  .search-btn i {
+    font-size: 0.8rem;
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .hero-title {
+    font-size: 2.2rem;
+    line-height: 1.1;
+  }
+  
+  .hero-logo img {
+    width: 120px;
+    height: 120px;
+  }
+  
+  .search-input {
+    height: 48px;
+    font-size: 0.95rem;
+  }
+  
+  .search-btn {
+    width: 36px;
+    height: 36px;
+  }
+  
+  .search-btn i {
+    font-size: 1rem;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .main-container {
+    padding-top: 30px;
+  }
+  
+  .search-section.centered {
+    min-height: calc(100vh - 30px);
+    padding: 0.5rem;
+    padding-top: calc(25vh - 120px); /* Adjusted for small mobile */
+  }
+  
+  .hero-title {
+    font-size: 1.8rem;
+    line-height: 1.1;
+  }
+  
+  .hero-subtitle {
+    font-size: 0.9rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .hero-logo img {
+    width: 100px;
+    height: 100px;
+  }
+  
+  .search-container {
+    max-width: 98%;
+  }
+  
+  .search-input {
+    height: 45px;
+    font-size: 0.9rem;
+    padding: 0 3.5rem 0 3rem;
+  }
+  
+  .search-icon {
+    left: 0.8rem;
+    font-size: 1.2rem;
+  }
+  
+  .search-btn {
+    width: 34px;
+    height: 34px;
+    right: 6px;
+  }
+}
+
+@media screen and (max-width: 360px) {
+  .hero-title {
+    font-size: 1.6rem;
+  }
+  
+  .hero-logo img {
+    width: 90px;
+    height: 90px;
+  }
+  
+  .search-input {
+    height: 42px;
+    font-size: 0.85rem;
+  }
+}
+
+/* Remove Google-style decorative elements */
+.hero-section::before {
+  display: none;
+}
+
+
+/* Improved compact mode styling */
+.search-section.compact .search-container {
+  max-width: 500px;
+}
+
+.search-section.compact .search-box {
+  box-shadow: 0 4px 20px rgba(139, 92, 246, 0.1);
+}
+
+.search-section.compact .search-input {
+  height: 50px;
 }

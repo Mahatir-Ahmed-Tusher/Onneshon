@@ -4,102 +4,82 @@ import { useLanguage } from "../Main/Main";
 
 const MainData = ({ sendDataParam }) => {
   MainData.propTypes = {
-    sendDataParam: PropTypes.any.isRequired, // or specify the correct prop type
+    sendDataParam: PropTypes.any.isRequired,
   };
 
   const { getText } = useLanguage();
   const { knowledge_panel } = sendDataParam;
 
+  if (!knowledge_panel) return null;
+
   return (
-    <>
-      <h3 className="Heading">
-        {knowledge_panel
-          ? getText(`${knowledge_panel?.name} এর জন্য ওয়েব ঘেঁটে যা পাওয়া গেলো`, `Web Search for ${knowledge_panel?.name}`)
-          : getText("ওয়েব অনুসন্ধান", "Web Search")}
-      </h3>
-      <div className="MainData">
-        <div className=" Basic-info">
-          <p>
-            {knowledge_panel?.description?.site}
-            {"  "}
-            <a
-              href={knowledge_panel?.description?.url}
-              target="_blank"
-              rel="noreferrer"
-              title="Open in new tab"
-            >
-              {knowledge_panel?.description?.url}
-            </a>
-          </p>
-
-          <figure>
-            <img
-              src={knowledge_panel?.image?.url}
-              alt={knowledge_panel?.name}
-              width="100px"
-            />
-          </figure>
-        </div>
-
-        <div className="description-info">
-          <div className="knowledge_panel-title">
-            {" "}
-            {knowledge_panel ? (
-              <>
-                <strong>{getText('শিরোনাম :-', 'Title :-')}</strong>
-                {knowledge_panel?.name
-                  ? knowledge_panel?.name
-                  : getText("এ অংশে কোনো অনুসন্ধান ফলাফল নেই, নীচের আরও ফলাফল অংশটি দেখুন ", "No results found")}
-
-                <div className="knowledge_panel-label">
-                  {" "}
-                  <strong>{getText('লেবেল :- ', 'Label :- ')}</strong>
-                  {knowledge_panel?.label
-                    ? knowledge_panel?.label
-                    : getText("এ অংশে কোনো অনুসন্ধান ফলাফল নেই, নীচের আরও ফলাফল অংশটি দেখুন ", "No results found")}
-                </div>
-              </>
-            ) : (
-              <>{getText(" এ অংশে কোনো অনুসন্ধান ফলাফল নেই, নীচের আরও ফলাফল অংশটি দেখুন ", " No Search Results ")}</>
-            )}
-          </div>
-
-          <p className="knowledge_panel-description">
-            {knowledge_panel ? (
-              <>
-                <strong>{getText('বিবরণ :-', 'Description :-')}</strong>
-                {knowledge_panel?.description
-                  ? knowledge_panel?.description?.text
-                  : getText("এ অংশে কোনো অনুসন্ধান ফলাফল নেই, নীচের আরও ফলাফল অংশটি দেখুন ", "No results found")}
-              </>
-            ) : (
-              <>{""}</>
-            )}
-          </p>
-        </div>
-
-        <div className="knowledge_panel-Extra-info">
-          <ul>
-            {knowledge_panel?.info.map((item, index) => {
-              return (
-                <li key={index}>
-                  {item?.title} :-{" "}
-                  {item?.labels?.map((label, index) => (
-                    <span
-                      key={index}
-                      className="knowledge_panel-label-extra-info"
-                    >
-                      {" "}
-                      {label} ,
-                    </span>
-                  ))}
-                </li>
-              );
-            })}
-          </ul>
-        </div>
+    <div className="main-data-section">
+      <div className="section-header">
+        <h2 className="section-title">
+          {getText('প্রধান তথ্য', 'Knowledge Panel')}
+        </h2>
       </div>
-    </>
+      
+      <div className="knowledge-panel">
+        <div className="panel-header">
+          <div className="panel-info">
+            <h3 className="panel-title">{knowledge_panel?.name}</h3>
+            {knowledge_panel?.label && (
+              <p className="panel-label">{knowledge_panel?.label}</p>
+            )}
+            <div className="panel-source">
+              <span className="source-indicator"></span>
+              <a
+                href={knowledge_panel?.description?.url}
+                target="_blank"
+                rel="noreferrer"
+                className="source-link"
+              >
+                {knowledge_panel?.description?.site || knowledge_panel?.description?.url}
+              </a>
+            </div>
+          </div>
+          
+          {knowledge_panel?.image?.url && (
+            <div className="panel-image">
+              <img
+                src={knowledge_panel?.image?.url}
+                alt={knowledge_panel?.name}
+                loading="lazy"
+              />
+            </div>
+          )}
+        </div>
+
+        {knowledge_panel?.description?.text && (
+          <div className="panel-description">
+            <p>{knowledge_panel?.description?.text}</p>
+          </div>
+        )}
+
+        {knowledge_panel?.info && knowledge_panel.info.length > 0 && (
+          <div className="panel-details">
+            <h4 className="details-title">
+              {getText('বিস্তারিত তথ্য', 'Details')}
+            </h4>
+            <div className="details-grid">
+              {knowledge_panel.info.map((item, index) => (
+                <div key={index} className="detail-item">
+                  <span className="detail-label">{item?.title}</span>
+                  <div className="detail-values">
+                    {item?.labels?.map((label, labelIndex) => (
+                      <span key={labelIndex} className="detail-value">
+                        {label}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
   );
 };
 
