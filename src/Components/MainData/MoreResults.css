@@ -1,0 +1,126 @@
+.Heading {
+  text-align: center;
+  color: #4c1d95;
+  font-weight: 600;
+  font-size: 1.5rem;
+  font-family: 'Hind Siliguri', sans-serif;
+}
+
+.MainData-MoreResults-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  text-decoration: none;
+  color: #374151;
+  width: 80%;
+  margin: 1rem auto;
+}
+
+.MainData-MoreResults-container-content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  width: 80%;
+  margin: 1rem auto;
+  gap: 1rem;
+}
+
+.MainData-MoreResults {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+  height: 100%;
+  padding: 1rem;
+  border: 2px solid transparent;
+  background: linear-gradient(white, white) padding-box,
+              linear-gradient(135deg, #8b5cf6, #7c3aed) border-box;
+  border-radius: 10px;
+  background-color: white;
+  box-shadow: 0 8px 25px rgba(139, 92, 246, 0.15);
+  font-size: 1.2rem;
+  transition: all 0.3s ease;
+}
+
+.MainData-MoreResults:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 35px rgba(139, 92, 246, 0.2);
+}
+
+.title-more-results {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #4c1d95;
+}
+
+.description-more-results {
+  font-size: 1.2rem;
+  color: #374151;
+  text-align: justify;
+  line-height: 1.6;
+}
+
+.button-more-results {
+  background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+  color: #f7f7f7;
+  border: none;
+  border-radius: 1.5rem;
+  padding: 0.5rem 1rem;
+  font-size: 1.2rem;
+  cursor: pointer;
+  margin-top: 1rem;
+  text-decoration: none;
+  text-align: center;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);
+}
+
+.button-more-results:hover {
+  background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
+  color: #f7f7f7;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(139, 92, 246, 0.4);
+  text-decoration: none;
+  text-align: center;
+}
+
+.link-more-results {
+  text-decoration: none;
+  color: #f7f7f7;
+  font-weight: 600;
+  font-size: 1.2rem;
+  text-align: center;
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  font-family: 'Hind Siliguri', sans-serif;
+}
+
+.link-more-results:active {
+  color: #f7f7f7;
+}
+.link-more-results:visited {
+  color: #f7f7f7;
+}
+
+@media screen and (max-width: 400px) {
+  .link-more-results {
+    font-size: 0.9rem;
+    padding: 0;
+  }
+  .title-more-results {
+    font-size: 1rem;
+  }
+  .description-more-results {
+    font-size: 0.9rem;
+    text-wrap: break-word;
+  }
+  .MainData-MoreResults-container {
+    width: 100%;
+  }
+}

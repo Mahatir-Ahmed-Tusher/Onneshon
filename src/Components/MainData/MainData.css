@@ -1,0 +1,119 @@
+.Heading {
+  text-align: center;
+  padding: 1rem 0;
+  font-family: 'Hind Siliguri', sans-serif;
+  color: #4c1d95;
+  font-weight: 600;
+  font-size: 1.5rem;
+}
+
+.MainData {
+  border: 2px solid transparent;
+  background: linear-gradient(white, white) padding-box,
+              linear-gradient(135deg, #8b5cf6, #7c3aed) border-box;
+  border-radius: 10px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  width: 80%;
+  height: 100%;
+  gap: 1rem;
+  background-color: white;
+  color: #374151;
+  box-shadow: 0 10px 30px rgba(139, 92, 246, 0.15);
+  font-size: 1.2rem;
+  margin: 1rem auto;
+  transition: all 0.3s ease;
+}
+
+.MainData:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 40px rgba(139, 92, 246, 0.2);
+}
+
+.Basic-info {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.Basic-info > p {
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: #374151;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.Basic-info > p > a {
+  color: #7c3aed;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 1.5rem;
+  transition: all 0.3s ease;
+}
+.Basic-info > p > a:hover {
+  color: #8b5cf6;
+  text-decoration: underline;
+}
+.Basic-info > p > a :visited {
+  color: #7c3aed;
+}
+
+.description-info {
+  width: 100%;
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: 0.5rem;
+  flex-direction: column;
+}
+
+.knowledge_panel-title {
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: #374151;
+  text-decoration: none;
+}
+
+.knowledge_panel-label {
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: #374151;
+  text-decoration: none;
+}
+
+.knowledge_panel-Extra-info > ul {
+  font-size: 1.2rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 0.5rem;
+  text-decoration: none;
+}
+
+.knowledge_panel-label-extra-info:nth-child(even) {
+  margin-left: 0.5rem;
+}
+
+@media screen and (max-width: 768px) {
+  .MainData {
+    overflow: hidden;
+    width: 100%;
+  }
+  .MainData-MoreResults-container {
+    width: 100%;
+  }
+}
+@media screen and (max-width: 400px) {
+  .Basic-info > p > a {
+    font-size: 1rem;
+  }
+}

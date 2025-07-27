@@ -1,0 +1,79 @@
+.RelatedKeyWord-container {
+  gap: 0.5rem;
+  text-decoration: none;
+  color: #374151;
+  margin: 1rem auto;
+  width: 50%;
+}
+
+.RelatedKeyWord-container > div {
+  display: grid;
+  grid-template-columns: repeat(3, 15rem);
+  width: 100%;
+  margin: 1rem auto;
+  gap: 1rem;
+}
+
+.RelatedKeyWord {
+  text-align: center;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #4c1d95;
+  cursor: pointer;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  border: 2px solid transparent;
+  background: linear-gradient(white, white) padding-box,
+              linear-gradient(135deg, #8b5cf6, #7c3aed) border-box;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(139, 92, 246, 0.15);
+  transition: all 0.3s ease;
+  font-family: 'Hind Siliguri', sans-serif;
+}
+
+.RelatedKeyWord:hover {
+  background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+  color: #fff;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(139, 92, 246, 0.3);
+}
+
+@media screen and (max-width: 1050px) {
+  .RelatedKeyWord-container {
+    width: 70%;
+  }
+}
+
+@media screen and (max-width: 950px) {
+  .RelatedKeyWord-container > div {
+    grid-template-columns: repeat(2, 14rem);
+  }
+  .RelatedKeyWord-container {
+    width: 60%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .RelatedKeyWord-container {
+    width: 70%;
+  }
+  .RelatedKeyWord {
+    font-size: 1rem;
+  }
+}
+@media screen and (max-width: 638px) {
+  .RelatedKeyWord-container {
+    width: 65%;
+  }
+  .RelatedKeyWord-container > div {
+    grid-template-columns: repeat(2, 10rem);
+  }
+}
+@media screen and (max-width: 465px) {
+  .RelatedKeyWord-container > div {
+    grid-template-columns: repeat(1, 10rem);
+  }
+  .RelatedKeyWord-container {
+    width: 40%;
+  }
+}
