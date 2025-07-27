@@ -30,4 +30,4 @@ We welcome all kinds of contributions! Feel free to fork the repo, make changes,
 
 ## 🙏 Credits
 
-Developed with ❤️ by SlotHub as part of the **অন্বেষা (Onnesha)** initiative — dedicated to enriching the Bengali digital space.
+Developed with ❤️ by SlotHub as part of the **অন্বেষণ (Onneshon)** initiative — dedicated to enriching the Bengali digital space.
