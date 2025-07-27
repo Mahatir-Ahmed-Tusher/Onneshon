@@ -1,6 +1,6 @@
-# অন্বেষা (Onnesha) - Bengali Search Engine
+# অন্বেষণ (Onneshon) - Bengali Search Engine
 
-**অন্বেষা** is a modern Bengali search engine web application that empowers users with fast, intuitive, and bilingual search capabilities. Built for the future of Bengali-language information access, অন্বেষা blends technology and typography to deliver an elegant and responsive user experience.
+**অন্বেষণ** is a modern Bengali search engine web application that empowers users with fast, intuitive, and bilingual search capabilities. Built for the future of Bengali-language information access, অন্বেষা blends technology and typography to deliver an elegant and responsive user experience.
 
 ## 🚀 Tech Stack
 
