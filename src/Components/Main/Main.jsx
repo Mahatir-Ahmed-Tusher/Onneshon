@@ -127,7 +127,7 @@ const Main = forwardRef((props, ref) => {
     setHasSearched(true);
     setSearchQuery(currentInput);
     
-    const url = "https://google-web-search1.p.rapidapi.com/";
+    const url = "https://google-search74.p.rapidapi.com/";
     const options = {
       method: "GET",
       url,
@@ -138,7 +138,7 @@ const Main = forwardRef((props, ref) => {
       },
       headers: {
         "X-RapidAPI-Key": import.meta.env.VITE_APP_KEY,
-        "X-RapidAPI-Host": "google-web-search1.p.rapidapi.com",
+        "X-RapidAPI-Host": "google-search74.p.rapidapi.com",
       },
     };
     
