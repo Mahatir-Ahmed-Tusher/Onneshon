@@ -32,17 +32,17 @@ const Main = forwardRef((props, ref) => {
 
   // Predefined list of suggestive searches
   const suggestiveSearches = [
-    "আজকের আবহাওয়া", // Today's weather
-    "Top news today",
-    "বাংলাদেশের ইতিহাস", // History of Bangladesh
+    "ভিটেলোজেনিন জিনের কাজ কী?", // Today's weather
+    "Why did Van Gogh Die?",
+    "বাংলা ভাষার উৎপত্তি কীভাবে?", // History of Bangladesh
     "Best programming languages",
-    "কিভাবে রান্না করবেন", // How to cook
-    "Latest movies",
-    "ঢাকার পর্যটন স্থান", // Tourist places in Dhaka
+    "কাচ্চি বিরিয়ানীর রেসিপি", // How to cook
+    "Latest movies of this year",
+    "ঢাকার সিনেপ্লেসগুলো কোথায় কোথায়?", // Tourist places in Dhaka
     "Machine learning tutorial",
-    "বাংলা সাহিত্য", // Bengali literature
+    "Who is Carl Sagan?", // Bengali literature
     "Healthy diet tips",
-    "ক্রিকেট খবর", // Cricket news
+    "Latest News on AI", // Cricket news
     "Web development guide"
   ];
 
