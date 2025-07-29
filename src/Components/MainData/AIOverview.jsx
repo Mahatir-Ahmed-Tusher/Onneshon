@@ -221,7 +221,7 @@ ${resultsContext}`
             <div className="ai-header">
               <div className="ai-badge">
                 <i className="ri-sparkling-line"></i>
-                {getText('Gemini দ্বারা চালিত', 'Powered by Gemini')}
+                {getText('অন্বেষণ AI দ্বারা চালিত', 'Powered by Onneshon AI')}
               </div>
             </div>
             

@@ -11,7 +11,7 @@ const MoreResults = ({ sendDataParam }) => {
     <div className="more-results-section">
       <div className="section-header">
         <h2 className="section-title">
-          {getText('আরও ফলাফল', 'Search Results')}
+          {getText('সার্চের বিস্তারিত ফলাফল', 'Search Results')}
         </h2>
         <p className="results-count">
           {getText(`${sendDataParam.results.length}টি ফলাফল পাওয়া গেছে`, `${sendDataParam.results.length} results found`)}
