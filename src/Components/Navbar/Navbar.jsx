@@ -27,9 +27,7 @@ const Navbar = ({ onLogoClick }) => {
         <div className="navbar-right">
           <div className="desktop-menu">
             <a 
-              href="https://www.allbanglanewspaper.xyz/" 
-              target="_blank" 
-              rel="noreferrer"
+              href="/news"
               className="nav-link"
             >
               {getText('খবর', 'News')}
@@ -54,9 +52,7 @@ const Navbar = ({ onLogoClick }) => {
         {isMobileMenuOpen && (
           <div className="mobile-menu">
             <a 
-              href="https://www.allbanglanewspaper.xyz/" 
-              target="_blank" 
-              rel="noreferrer"
+              href="/news"
               className="mobile-nav-link"
               onClick={closeMobileMenu}
             >

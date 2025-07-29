@@ -7,6 +7,7 @@ import Terms from "./pages/Terms";
 import Contact from "./pages/Contact";
 import Settings from "./pages/Settings";
 import Chatbot from "./pages/Chatbot";
+import News from "./pages/News";
 import { useRef } from "react";
 
 function App() {
@@ -69,6 +70,16 @@ function App() {
       <>
         <Navbar onLogoClick={handleLogoClick} />
         <Chatbot />
+        <Footer />
+      </>
+    );
+  }
+
+  if (currentPath === '/news') {
+    return (
+      <>
+        <Navbar onLogoClick={handleLogoClick} />
+        <News />
         <Footer />
       </>
     );

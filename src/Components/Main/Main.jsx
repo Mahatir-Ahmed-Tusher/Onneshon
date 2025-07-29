@@ -3,7 +3,6 @@ import "remixicon/fonts/remixicon.css";
 import "./Main.css";
 import { useState, createContext, useContext, forwardRef, useImperativeHandle } from "react";
 import axios from "axios";
-import MainData from "../MainData/MainData";
 import MoreResults from "../MainData/MoreResults";
 import RelatedKeyWord from "../MainData/RelatedKeyWord";
 import AIOverview from "../MainData/AIOverview";
@@ -31,8 +30,33 @@ const Main = forwardRef((props, ref) => {
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [searchHistory, setSearchHistory] = useState([]);
 
-  // Load AI overview preference and search history from localStorage on mount
+  // Predefined list of suggestive searches
+  const suggestiveSearches = [
+    "আজকের আবহাওয়া", // Today's weather
+    "Top news today",
+    "বাংলাদেশের ইতিহাস", // History of Bangladesh
+    "Best programming languages",
+    "কিভাবে রান্না করবেন", // How to cook
+    "Latest movies",
+    "ঢাকার পর্যটন স্থান", // Tourist places in Dhaka
+    "Machine learning tutorial",
+    "বাংলা সাহিত্য", // Bengali literature
+    "Healthy diet tips",
+    "ক্রিকেট খবর", // Cricket news
+    "Web development guide"
+  ];
+
+  // Select 3 random suggestions
+  const getRandomSuggestions = () => {
+    const shuffled = suggestiveSearches.sort(() => 0.5 - Math.random());
+    return shuffled.slice(0, 3);
+  };
+
+  const [randomSuggestions, setRandomSuggestions] = useState(getRandomSuggestions());
+
+  // Refresh suggestions on mount and when resetting to home
   useState(() => {
+    setRandomSuggestions(getRandomSuggestions());
     const savedAiPreference = localStorage.getItem('aiOverviewEnabled');
     if (savedAiPreference !== null) {
       setAiOverviewEnabled(JSON.parse(savedAiPreference));
@@ -43,6 +67,18 @@ const Main = forwardRef((props, ref) => {
       setSearchHistory(JSON.parse(savedHistory));
     }
   }, []);
+
+  useImperativeHandle(ref, () => ({
+    resetToHome: () => {
+      setCurrentInput("");
+      setSendDataParam([]);
+      setLoading(false);
+      setHasSearched(false);
+      setSearchQuery("");
+      setShowSuggestions(false);
+      setRandomSuggestions(getRandomSuggestions()); // Refresh suggestions
+    }
+  }));
 
   // Save AI overview preference to localStorage
   const toggleAiOverview = () => {
@@ -75,17 +111,6 @@ const Main = forwardRef((props, ref) => {
       )
       .slice(0, 8); // Show max 8 suggestions
   };
-
-  useImperativeHandle(ref, () => ({
-    resetToHome: () => {
-      setCurrentInput("");
-      setSendDataParam([]);
-      setLoading(false);
-      setHasSearched(false);
-      setSearchQuery("");
-      setShowSuggestions(false);
-    }
-  }));
 
   const getText = (bnText, enText) => {
     return language === 'bn' ? bnText : enText;
@@ -157,6 +182,7 @@ const Main = forwardRef((props, ref) => {
   return (
     <LanguageContext.Provider value={{ language, getText, setLanguage }}>
       <main className="main-container">
+        <div className="more-snow"></div> {/* Snowfall/Stars container */}
         <div className={`search-section ${hasSearched ? 'compact' : 'centered'}`}>
           {!hasSearched && (
             <div className="hero-section">
@@ -225,6 +251,21 @@ const Main = forwardRef((props, ref) => {
                 />
               )}
             </div>
+
+            {!hasSearched && (
+              <div className="suggestive-searches">
+                {randomSuggestions.map((suggestion, index) => (
+                  <button
+                    key={index}
+                    className="suggestive-search-btn"
+                    onClick={() => handleSuggestionClick(suggestion)}
+                  >
+                    <i className="ri-search-eye-line suggestive-icon" />
+                    {suggestion}
+                  </button>
+                ))}
+              </div>
+            )}
           </div>
         </div>
 

@@ -4,17 +4,18 @@
   left: 0;
   right: 0;
   z-index: 100;
-  background: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border-bottom: 1px solid rgba(139, 92, 246, 0.1);
-  box-shadow: 0 4px 30px rgba(139, 92, 246, 0.1);
+  background: rgba(255, 255, 255, 0.1); /* Subtle translucent white for light theme */
+  backdrop-filter: blur(12px); /* Reduced blur for sharper effect */
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(139, 92, 246, 0.15); /* Slightly more transparent border */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05); /* Softer shadow */
+  transition: all 0.3s ease;
 }
 
 [data-theme="dark"] .navbar {
-  background: rgba(30, 41, 59, 0.95); /* Dark theme from mobile-menu */
-  border-bottom-color: rgba(139, 92, 246, 0.2);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  background: rgba(30, 41, 59, 0.2); /* Subtle translucent dark for dark theme */
+  border-bottom-color: rgba(139, 92, 246, 0.25);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
 }
 
 .navbar-container {
@@ -23,7 +24,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0.4rem 1rem; /* Compact padding */
+  padding: 0.5rem 1.5rem; /* Slightly more padding for balance */
 }
 
 .navbar-left {
@@ -33,7 +34,7 @@
 
 .brand-name {
   font-weight: 700;
-  font-size: 1.5rem;
+  font-size: 1.6rem; /* Slightly larger for prominence */
   color: transparent;
   background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
   -webkit-background-clip: text;
@@ -49,41 +50,42 @@
   -webkit-background-clip: text;
   background-clip: text;
   transform: scale(1.05);
-  filter: drop-shadow(0 2px 8px rgba(139, 92, 246, 0.3));
+  filter: drop-shadow(0 2px 8px rgba(139, 92, 246, 0.4)); /* Enhanced shadow on hover */
 }
 
 .navbar-right {
   display: flex;
   align-items: center;
-  gap: 0.5rem; /* Reduced gap for mobile */
+  gap: 1rem; /* Increased gap for better spacing */
 }
 
 .desktop-menu {
   display: flex;
   align-items: center;
-  gap: 0.75rem; /* Tighter gap for mobile */
+  gap: 1rem; /* Increased for better separation */
 }
 
 .nav-link {
-  color: var(--text-primary, #1e293b);
+  color: #1e293b; /* Light theme text */
   text-decoration: none;
   font-weight: 600;
-  font-size: 0.9rem; /* Slightly smaller for mobile */
+  font-size: 0.95rem; /* Slightly larger for readability */
   font-family: 'Hind Siliguri', sans-serif;
-  padding: 0.4rem 0.8rem; /* Compact padding */
-  border-radius: 8px;
+  padding: 0.5rem 1rem; /* Balanced padding */
+  border-radius: 10px; /* Softer corners */
   transition: all 0.3s ease;
   position: relative;
 }
 
 [data-theme="dark"] .nav-link {
-  color: #c5c5d2; /* Dark theme text */
+  color: #d1d5db; /* Lighter gray for dark theme */
 }
 
 .nav-link:hover {
   color: #8b5cf6;
-  background: rgba(139, 92, 246, 0.05);
+  background: rgba(139, 92, 246, 0.1);
   transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(139, 92, 246, 0.2); /* Subtle hover shadow */
 }
 
 .nav-link::after {
@@ -106,20 +108,20 @@
   display: none;
   background: none;
   border: none;
-  font-size: 1.5rem;
-  color: var(--text-primary, #1e293b);
+  font-size: 1.6rem; /* Slightly larger icon */
+  color: #1e293b;
   cursor: pointer;
   padding: 0.5rem;
-  border-radius: 8px;
+  border-radius: 10px;
   transition: all 0.3s ease;
 }
 
 [data-theme="dark"] .mobile-menu-toggle {
-  color: #c5c5d2; /* Dark theme */
+  color: #d1d5db;
 }
 
 .mobile-menu-toggle:hover {
-  background: rgba(139, 92, 246, 0.1);
+  background: rgba(139, 92, 246, 0.15);
   color: #8b5cf6;
 }
 
@@ -128,70 +130,83 @@
   top: 100%;
   left: 0;
   right: 0;
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border-top: 1px solid rgba(139, 92, 246, 0.1);
+  background: rgba(255, 255, 255, 0.1); /* Glassy effect for mobile menu */
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-top: 1px solid rgba(139, 92, 246, 0.15);
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
-  padding: 1rem 0;
+  padding: 1.5rem 0; /* More padding for comfort */
   z-index: 1000;
 }
 
 [data-theme="dark"] .mobile-menu {
-  background: rgba(30, 41, 59, 0.95);
-  border-top-color: rgba(139, 92, 246, 0.2);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  background: rgba(30, 41, 59, 0.2);
+  border-top-color: rgba(139, 92, 246, 0.25);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
 }
 
 .mobile-nav-link {
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  color: var(--text-primary, #1e293b);
+  color: #1e293b;
   text-decoration: none;
   font-weight: 600;
-  font-size: 1rem;
+  font-size: 1.1rem; /* Slightly larger for mobile */
   font-family: 'Hind Siliguri', sans-serif;
   padding: 1rem 2rem;
   transition: all 0.3s ease;
 }
 
 [data-theme="dark"] .mobile-nav-link {
-  color: #c5c5d2; /* Dark theme */
+  color: #d1d5db;
 }
 
 .mobile-nav-link:hover {
-  background: rgba(139, 92, 246, 0.1);
+  background: rgba(139, 92, 246, 0.15);
   color: #8b5cf6;
 }
 
 .mobile-nav-link i {
-  font-size: 1.2rem;
+  font-size: 1.3rem; /* Slightly larger icon */
   color: #8b5cf6;
 }
 
 @media screen and (max-width: 768px) {
   .desktop-menu {
-    display: flex; /* Keep desktop menu visible */
-    gap: 0.5rem; /* Tighter gap */
-  }
-  
-  .nav-link {
-    font-size: 0.8rem; /* Smaller font for mobile */
-    padding: 0.3rem 0.6rem; /* More compact */
+    display: none; /* Hide desktop menu on mobile */
   }
   
   .mobile-menu-toggle {
-    display: block; /* Keep hamburger toggle */
+    display: block; /* Show hamburger menu */
   }
   
   .navbar-container {
-    padding: 0.3rem 0.8rem; /* Ultra compact */
+    padding: 0.4rem 1rem; /* Compact padding for mobile */
   }
   
   .brand-name {
+    font-size: 1.4rem; /* Slightly smaller for mobile */
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .navbar-container {
+    padding: 0.3rem 0.8rem; /* Ultra compact for small screens */
+  }
+  
+  .brand-name {
+    font-size: 1.2rem;
+  }
+  
+  .mobile-nav-link {
+    font-size: 1rem;
+    padding: 0.8rem 1.5rem;
+  }
+  
+  .mobile-nav-link i {
     font-size: 1.2rem;
   }
 }
