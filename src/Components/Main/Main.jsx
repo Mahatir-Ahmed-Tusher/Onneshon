@@ -38,7 +38,7 @@ const Main = forwardRef((props, ref) => {
     "Best programming languages",
     "কাচ্চি বিরিয়ানীর রেসিপি", // How to cook
     "Latest movies of this year",
-    "ঢাকার সিনেপ্লেসগুলো কোথায় কোথায়?", // Tourist places in Dhaka
+    "ঢাকার সিনেপ্লেক্সগুলো কোথায় কোথায়?", // Tourist places in Dhaka
     "Machine learning tutorial",
     "Who is Carl Sagan?", // Bengali literature
     "Healthy diet tips",
