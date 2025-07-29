@@ -11,9 +11,27 @@ const Chatbot = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [editingMessageId, setEditingMessageId] = useState(null);
   const [editValue, setEditValue] = useState("");
+  const [sidebarExpanded, setSidebarExpanded] = useState(false);
+  const [chats, setChats] = useState([]);
+  const [selectedChatId, setSelectedChatId] = useState(null);
   const messagesEndRef = useRef(null);
   const inputRef = useRef(null);
   const editInputRef = useRef(null);
+
+  // Load chats from localStorage on mount
+  useEffect(() => {
+    const savedChats = localStorage.getItem('kothakunjo_chats');
+    if (savedChats) {
+      setChats(JSON.parse(savedChats));
+    }
+  }, []);
+
+  // Save chats to localStorage whenever chats change
+  useEffect(() => {
+    if (chats.length > 0) {
+      localStorage.setItem('kothakunjo_chats', JSON.stringify(chats));
+    }
+  }, [chats]);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -71,33 +89,48 @@ Always remember you are a member of the Onneshon family and your primary goal is
     if (!textToSend.trim()) return;
 
     let updatedMessages;
-    
+    let newChatId = selectedChatId;
+
+    if (!newChatId) {
+      newChatId = Date.now();
+      const newChat = {
+        id: newChatId,
+        name: textToSend.slice(0, 30), // First 30 chars as chat name
+        messages: []
+      };
+      setChats(prev => [...prev, newChat]);
+      setSelectedChatId(newChatId);
+    }
+
     if (isEdit && editMessageId) {
-      // Update the edited message and remove all subsequent messages
       updatedMessages = messages.map(msg => {
         if (msg.id === editMessageId) {
           return { ...msg, text: textToSend, timestamp: new Date() };
         }
         return msg;
       });
-      
-      // Remove all bot messages after the edited user message
+
       const editedMessageIndex = updatedMessages.findIndex(msg => msg.id === editMessageId);
       updatedMessages = updatedMessages.slice(0, editedMessageIndex + 1);
-      
+
       setMessages(updatedMessages);
+      setChats(prev => prev.map(chat =>
+        chat.id === selectedChatId ? { ...chat, messages: updatedMessages } : chat
+      ));
       setEditingMessageId(null);
     } else {
-      // Add new user message
       const userMessage = {
         id: Date.now(),
         text: textToSend,
         sender: 'user',
         timestamp: new Date()
       };
-      
+
       updatedMessages = [...messages, userMessage];
       setMessages(updatedMessages);
+      setChats(prev => prev.map(chat =>
+        chat.id === selectedChatId ? { ...chat, messages: updatedMessages } : chat
+      ));
       setInputValue("");
     }
 
@@ -117,7 +150,6 @@ Always remember you are a member of the Onneshon family and your primary goal is
       const userLanguage = detectLanguage(textToSend);
       const systemPrompt = userLanguage === 'bn' ? getBengaliSystemPrompt() : getEnglishSystemPrompt();
 
-      // Get conversation history for context (last 10 messages)
       const conversationHistory = updatedMessages
         .slice(-10)
         .map(msg => ({
@@ -146,9 +178,12 @@ Always remember you are a member of the Onneshon family and your primary goal is
       };
 
       setMessages(prev => [...prev, botMessage]);
+      setChats(prev => prev.map(chat =>
+        chat.id === selectedChatId ? { ...chat, messages: [...chat.messages, botMessage] } : chat
+      ));
     } catch (error) {
       console.error('Chatbot Error:', error);
-      
+
       let errorMessage;
       if (error.message.includes('API key')) {
         errorMessage = getText(
@@ -176,6 +211,9 @@ Always remember you are a member of the Onneshon family and your primary goal is
       };
 
       setMessages(prev => [...prev, errorBotMessage]);
+      setChats(prev => prev.map(chat =>
+        chat.id === selectedChatId ? { ...chat, messages: [...chat.messages, errorBotMessage] } : chat
+      ));
     } finally {
       setIsLoading(false);
     }
@@ -223,7 +261,34 @@ Always remember you are a member of the Onneshon family and your primary goal is
     setMessages([]);
     setEditingMessageId(null);
     setEditValue("");
+    setSelectedChatId(null);
     inputRef.current?.focus();
+  };
+
+  const selectChat = (chatId) => {
+    const selectedChat = chats.find(chat => chat.id === chatId);
+    setSelectedChatId(chatId);
+    setMessages(selectedChat.messages || []);
+    setEditingMessageId(null);
+    setEditValue("");
+    inputRef.current?.focus();
+  };
+
+  const renameChat = (chatId) => {
+    const newName = prompt(getText('নতুন নাম লিখুন', 'Enter new name'));
+    if (!newName) return;
+    setChats(prev => prev.map(chat =>
+      chat.id === chatId ? { ...chat, name: newName } : chat
+    ));
+  };
+
+  const deleteChat = (chatId) => {
+    if (!window.confirm(getText('এই চ্যাট মুছতে চান?', 'Are you sure you want to delete this chat?'))) return;
+    setChats(prev => prev.filter(chat => chat.id !== chatId));
+    if (selectedChatId === chatId) {
+      setMessages([]);
+      setSelectedChatId(null);
+    }
   };
 
   const handleExampleClick = (exampleText) => {
@@ -233,6 +298,44 @@ Always remember you are a member of the Onneshon family and your primary goal is
 
   return (
     <div className="chatbot-container">
+      <div className={`chatbot-sidebar ${sidebarExpanded ? 'expanded' : ''}`}>
+        <div className="sidebar-header">
+          <img
+            src={sidebarExpanded ? '/assets/logo_text.png' : '/assets/logo_icon.png'}
+            alt="logo"
+            className="sidebar-logo"
+          />
+          <div
+            className="sidebar-toggle"
+            onClick={() => setSidebarExpanded(!sidebarExpanded)}
+          >
+            <i className={sidebarExpanded ? 'ri-arrow-left-s-line' : 'ri-arrow-right-s-line'}></i>
+          </div>
+        </div>
+        <div className="chat-history">
+          {sidebarExpanded && (
+            <>
+              <button className="new-chat-btn" onClick={newChat}>
+                <i className="ri-add-line"></i>
+                {getText('নতুন চ্যাট', 'New chat')}
+              </button>
+              {chats.map(chat => (
+                <div key={chat.id} className="chat-label" onClick={() => selectChat(chat.id)}>
+                  <span className="chat-label-text">{chat.name}</span>
+                  <div className="chat-label-actions">
+                    <div className="chat-label-action" onClick={() => renameChat(chat.id)}>
+                      <i className="ri-edit-line"></i>
+                    </div>
+                    <div className="chat-label-action" onClick={() => deleteChat(chat.id)}>
+                      <i className="ri-delete-bin-line"></i>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </>
+          )}
+        </div>
+      </div>
       <div className="chatbot-content">
         <div className="chatbot-header">
           <div className="header-left">
@@ -332,24 +435,52 @@ Always remember you are a member of the Onneshon family and your primary goal is
                             {message.text}
                           </div>
                           <div className="message-actions">
-                            {message.sender === 'user' && (
-                              <button 
-                                className="action-btn"
-                                onClick={() => startEdit(message.id, message.text)}
-                                title={getText('সম্পাদনা করুন', 'Edit message')}
-                              >
-                                <i className="ri-edit-line"></i>
-                                {getText('সম্পাদনা', 'Edit')}
-                              </button>
+                            {message.sender === 'user' ? (
+                              <>
+                                <button 
+                                  className="action-btn"
+                                  onClick={() => startEdit(message.id, message.text)}
+                                  title={getText('সম্পাদনা করুন', 'Edit message')}
+                                >
+                                  <i className="ri-edit-line"></i>
+                                </button>
+                                <button 
+                                  className="action-btn"
+                                  onClick={() => copyMessage(message.text)}
+                                  title={getText('কপি করুন', 'Copy message')}
+                                >
+                                  <i className="ri-file-copy-line"></i>
+                                </button>
+                              </>
+                            ) : (
+                              <>
+                                <button 
+                                  className="action-btn"
+                                  onClick={() => copyMessage(message.text)}
+                                  title={getText('কপি করুন', 'Copy message')}
+                                >
+                                  <i className="ri-file-copy-line"></i>
+                                </button>
+                                <button 
+                                  className="action-btn"
+                                  title={getText('পুনরায় তৈরি করুন', 'Regenerate')}
+                                >
+                                  <i className="ri-refresh-line"></i>
+                                </button>
+                                <button 
+                                  className="action-btn"
+                                  title={getText('পছন্দ', 'Like')}
+                                >
+                                  <i className="ri-thumb-up-line"></i>
+                                </button>
+                                <button 
+                                  className="action-btn"
+                                  title={getText('অপছন্দ', 'Dislike')}
+                                >
+                                  <i className="ri-thumb-down-line"></i>
+                                </button>
+                              </>
                             )}
-                            <button 
-                              className="action-btn"
-                              onClick={() => copyMessage(message.text)}
-                              title={getText('কপি করুন', 'Copy message')}
-                            >
-                              <i className="ri-file-copy-line"></i>
-                              {getText('কপি', 'Copy')}
-                            </button>
                           </div>
                         </>
                       )}
@@ -393,11 +524,11 @@ Always remember you are a member of the Onneshon family and your primary goal is
                 onChange={(e) => setInputValue(e.target.value)}
                 onKeyDown={handleKeyPress}
                 placeholder={getText(
-                  'কথাকুঞ্জের সাথে কথা বলুন... (Enter চাপুন পাঠাতে)',
-                  'Message Kothakunjo... (Press Enter to send)'
+                  'কথাকুঞ্জের সাথে কথা বলুন...',
+                  'Message Kothakunjo...'
                 )}
                 className="chat-input"
-                rows="1"
+                rows="2"
                 disabled={isLoading}
               />
               <button 
@@ -406,7 +537,7 @@ Always remember you are a member of the Onneshon family and your primary goal is
                 disabled={!inputValue.trim() || isLoading}
                 title={getText('বার্তা পাঠান', 'Send message')}
               >
-                <i className="ri-send-plane-2-line"></i>
+                <i className="ri-arrow-right-s-line"></i>
               </button>
             </div>
             <div className="input-footer">
