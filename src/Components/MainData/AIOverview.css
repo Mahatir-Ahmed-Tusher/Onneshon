@@ -1,0 +1,332 @@
+.ai-overview-section {
+  margin-bottom: 3rem;
+}
+
+.section-header {
+  margin-bottom: 1.5rem;
+}
+
+.section-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--text-primary, #1e293b);
+  font-family: 'Hind Siliguri', sans-serif;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.section-title::before {
+  content: '';
+  width: 4px;
+  height: 24px;
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  border-radius: 2px;
+}
+
+.ai-icon {
+  font-size: 1.2rem;
+  color: #10b981;
+  margin-left: 0.5rem;
+}
+
+.ai-overview-card {
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e5e7eb;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+}
+
+[data-theme="dark"] .ai-overview-card {
+  background: #1e293b;
+  border-color: #334155;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.3);
+}
+
+.ai-overview-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+}
+
+.ai-overview-card:hover {
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
+  border-color: #d1d5db;
+}
+
+[data-theme="dark"] .ai-overview-card:hover {
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.4);
+  border-color: #475569;
+}
+
+.ai-content {
+  padding: 2rem;
+}
+
+.ai-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.ai-badge {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.ai-badge i {
+  font-size: 0.9rem;
+}
+
+.ai-summary {
+  color: var(--text-secondary, #475569);
+  line-height: 1.7;
+  font-size: 1rem;
+  font-family: 'Hind Siliguri', sans-serif;
+  margin-bottom: 1.5rem;
+}
+
+.ai-summary p {
+  margin-bottom: 1rem;
+}
+
+.ai-summary p:last-child {
+  margin-bottom: 0;
+}
+
+.ai-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-color, #f1f5f9);
+  font-size: 0.85rem;
+  color: var(--text-muted, #94a3b8);
+}
+
+.ai-powered {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.ai-powered i {
+  color: #10b981;
+}
+
+.ai-disclaimer {
+  font-style: italic;
+}
+
+.ai-references {
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border-color, #f1f5f9);
+}
+
+.references-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-primary, #1e293b);
+  margin-bottom: 1rem;
+  font-family: 'Hind Siliguri', sans-serif;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.references-title::before {
+  content: '';
+  width: 3px;
+  height: 16px;
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  border-radius: 2px;
+}
+
+.references-list {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.reference-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 0.5rem;
+  border-radius: 8px;
+  background: var(--bg-secondary, #f8fafc);
+  border: 1px solid var(--border-color, #e2e8f0);
+  transition: all 0.2s ease;
+}
+
+.reference-item:hover {
+  background: rgba(16, 185, 129, 0.05);
+  border-color: rgba(16, 185, 129, 0.2);
+}
+
+.reference-number {
+  font-weight: 600;
+  color: #10b981;
+  font-size: 0.85rem;
+  flex-shrink: 0;
+  min-width: 24px;
+}
+
+.reference-link {
+  color: var(--text-secondary, #475569);
+  text-decoration: none;
+  font-size: 0.9rem;
+  line-height: 1.4;
+  transition: color 0.2s ease;
+}
+
+.reference-link:hover {
+  color: #10b981;
+  text-decoration: underline;
+}
+
+.inline-reference {
+  color: #10b981;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.9em;
+  padding: 0.1em 0.2em;
+  border-radius: 3px;
+  background: rgba(16, 185, 129, 0.1);
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.inline-reference:hover {
+  background: rgba(16, 185, 129, 0.2);
+  color: #059669;
+  text-decoration: none;
+}
+
+.ai-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 2rem;
+  text-align: center;
+}
+
+.ai-loading-text {
+  margin-top: 1rem;
+  font-size: 1rem;
+  color: var(--text-secondary, #64748b);
+  font-weight: 500;
+  font-family: 'Hind Siliguri', sans-serif;
+}
+
+.ai-error {
+  background: rgba(239, 68, 68, 0.05);
+  border: 1px solid rgba(239, 68, 68, 0.1);
+  border-radius: 12px;
+  padding: 1.5rem;
+  text-align: center;
+}
+
+.ai-error-text {
+  color: #dc2626;
+  font-size: 0.9rem;
+  font-family: 'Hind Siliguri', sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.ai-error-text i {
+  font-size: 1rem;
+}
+
+.ai-retry-button {
+  margin-top: 1rem;
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 0.75rem 1.5rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  font-family: 'Hind Siliguri', sans-serif;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba(16, 185, 129, 0.2);
+}
+
+.ai-retry-button:hover:not(:disabled) {
+  background: linear-gradient(135deg, #059669 0%, #047857 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+}
+
+.ai-retry-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.ai-retry-button i {
+  font-size: 1rem;
+}
+
+@media screen and (max-width: 768px) {
+  .ai-content {
+    padding: 1.5rem;
+  }
+  
+  .ai-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  
+  .ai-footer {
+    flex-direction: column;
+    gap: 0.75rem;
+    align-items: flex-start;
+  }
+  
+  .references-list {
+    gap: 0.5rem;
+  }
+  
+  .reference-item {
+    padding: 0.4rem;
+  }
+  
+  .reference-link {
+    font-size: 0.85rem;
+  }
+  
+  .ai-loading {
+    padding: 2rem 1rem;
+  }
+  
+  .ai-retry-button {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.85rem;
+  }
+}

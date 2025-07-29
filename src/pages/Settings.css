@@ -1,0 +1,245 @@
+.settings-group {
+  margin: 1.5rem 0;
+}
+
+.theme-options {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.theme-option {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1.5rem 1rem;
+  border: 2px solid #e5e7eb;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: white;
+}
+
+[data-theme="dark"] .theme-option {
+  background: #334155;
+  border-color: #475569;
+}
+
+.theme-option:hover {
+  border-color: #8b5cf6;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(139, 92, 246, 0.15);
+}
+
+.theme-option.active {
+  border-color: #8b5cf6;
+  background: rgba(139, 92, 246, 0.05);
+  box-shadow: 0 4px 12px rgba(139, 92, 246, 0.2);
+}
+
+[data-theme="dark"] .theme-option.active {
+  background: rgba(139, 92, 246, 0.1);
+}
+
+.theme-preview {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  transition: all 0.3s ease;
+}
+
+.light-preview {
+  background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+  color: white;
+}
+
+.dark-preview {
+  background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+  color: #cbd5e1;
+}
+
+.system-preview {
+  background: linear-gradient(135deg, #6b7280 0%, #4b5563 100%);
+  color: white;
+}
+
+.theme-label {
+  font-weight: 600;
+  color: var(--text-primary, #1e293b);
+  font-size: 0.9rem;
+}
+
+.language-options {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.language-option {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.5rem;
+  border: 2px solid #e5e7eb;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: white;
+  position: relative;
+}
+
+[data-theme="dark"] .language-option {
+  background: #334155;
+  border-color: #475569;
+}
+
+.language-option:hover {
+  border-color: #8b5cf6;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(139, 92, 246, 0.15);
+}
+
+.language-option.active {
+  border-color: #8b5cf6;
+  background: rgba(139, 92, 246, 0.05);
+  box-shadow: 0 4px 12px rgba(139, 92, 246, 0.2);
+}
+
+[data-theme="dark"] .language-option.active {
+  background: rgba(139, 92, 246, 0.1);
+}
+
+.language-preview {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+}
+
+[data-theme="dark"] .language-preview {
+  background: #475569;
+  border-color: #64748b;
+}
+
+.language-flag {
+  font-size: 1.5rem;
+}
+
+.language-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  flex: 1;
+}
+
+.language-name {
+  font-weight: 600;
+  color: var(--text-primary, #1e293b);
+  font-size: 1.1rem;
+}
+
+.language-subtitle {
+  color: var(--text-secondary, #64748b);
+  font-size: 0.9rem;
+}
+
+.default-badge {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: white;
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.about-info {
+  margin-top: 1rem;
+  padding: 1rem;
+  background: #f8fafc;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+}
+
+[data-theme="dark"] .about-info {
+  background: #334155;
+  border-color: #475569;
+}
+
+.info-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.info-item:last-child {
+  border-bottom: none;
+}
+
+[data-theme="dark"] .info-item {
+  border-bottom-color: #475569;
+}
+
+.info-label {
+  font-weight: 600;
+  color: var(--text-primary, #374151);
+}
+
+.info-value {
+  color: var(--text-secondary, #64748b);
+  font-weight: 500;
+}
+
+@media screen and (max-width: 768px) {
+  .theme-options {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.75rem;
+  }
+  
+  .theme-option {
+    padding: 1rem 0.5rem;
+  }
+  
+  .theme-preview {
+    width: 40px;
+    height: 40px;
+    font-size: 1.2rem;
+  }
+  
+  .theme-label {
+    font-size: 0.8rem;
+  }
+  
+  .language-option {
+    padding: 0.75rem 1rem;
+  }
+  
+  .language-preview {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .language-flag {
+    font-size: 1.2rem;
+  }
+  
+  .language-name {
+    font-size: 1rem;
+  }
+  
+  .language-subtitle {
+    font-size: 0.8rem;
+  }
+}

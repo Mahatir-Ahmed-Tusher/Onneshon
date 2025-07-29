@@ -41,16 +41,27 @@
 .result-card {
   background: white;
   border-radius: 12px;
-  box-shadow: 0 2px 20px rgba(139, 92, 246, 0.06);
-  border: 1px solid rgba(139, 92, 246, 0.08);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e5e7eb;
   overflow: hidden;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+[data-theme="dark"] .result-card {
+  background: #1e293b;
+  border-color: #334155;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
 .result-card:hover {
-  box-shadow: 0 8px 35px rgba(139, 92, 246, 0.12);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
   transform: translateY(-3px);
-  border-color: rgba(139, 92, 246, 0.15);
+  border-color: #d1d5db;
+}
+
+[data-theme="dark"] .result-card:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+  border-color: #475569;
 }
 
 .result-content {
@@ -62,7 +73,7 @@
 }
 
 .result-title a {
-  color: #1e293b;
+  color: var(--text-primary, #1e293b);
   text-decoration: none;
   font-size: 1.2rem;
   font-weight: 600;
@@ -73,10 +84,13 @@
 
 .result-title a:hover {
   color: #8b5cf6;
+  text-decoration: underline;
+  text-decoration-color: rgba(139, 92, 246, 0.3);
+  text-underline-offset: 3px;
 }
 
 .result-description {
-  color: #475569;
+  color: var(--text-secondary, #475569);
   line-height: 1.6;
   margin-bottom: 1rem;
   font-size: 0.95rem;
@@ -94,7 +108,7 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  color: #64748b;
+  color: var(--text-muted, #64748b);
   font-size: 0.85rem;
 }
 
@@ -120,6 +134,7 @@
   background: rgba(139, 92, 246, 0.1);
   color: #7c3aed;
   transform: translateX(2px);
+  box-shadow: 0 2px 8px rgba(139, 92, 246, 0.2);
 }
 
 .result-link i {

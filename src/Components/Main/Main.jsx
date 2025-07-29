@@ -1,11 +1,13 @@
 import IMg from "../../assets/IMg.png";
 import "remixicon/fonts/remixicon.css";
 import "./Main.css";
-import { useState, createContext, useContext } from "react";
+import { useState, createContext, useContext, forwardRef, useImperativeHandle } from "react";
 import axios from "axios";
 import MainData from "../MainData/MainData";
 import MoreResults from "../MainData/MoreResults";
 import RelatedKeyWord from "../MainData/RelatedKeyWord";
+import AIOverview from "../MainData/AIOverview";
+import SearchSuggestions from "./SearchSuggestions";
 import PacmanLoader from "react-spinners/PacmanLoader";
 
 const LanguageContext = createContext();
@@ -18,12 +20,72 @@ export const useLanguage = () => {
   return context;
 };
 
-const Main = () => {
+const Main = forwardRef((props, ref) => {
   const [currentInput, setCurrentInput] = useState("");
   const [sendDataParam, setSendDataParam] = useState([]);
   const [Loading, setLoading] = useState(false);
   const [language, setLanguage] = useState('bn');
   const [hasSearched, setHasSearched] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [aiOverviewEnabled, setAiOverviewEnabled] = useState(true);
+  const [showSuggestions, setShowSuggestions] = useState(false);
+  const [searchHistory, setSearchHistory] = useState([]);
+
+  // Load AI overview preference and search history from localStorage on mount
+  useState(() => {
+    const savedAiPreference = localStorage.getItem('aiOverviewEnabled');
+    if (savedAiPreference !== null) {
+      setAiOverviewEnabled(JSON.parse(savedAiPreference));
+    }
+    
+    const savedHistory = localStorage.getItem('searchHistory');
+    if (savedHistory) {
+      setSearchHistory(JSON.parse(savedHistory));
+    }
+  }, []);
+
+  // Save AI overview preference to localStorage
+  const toggleAiOverview = () => {
+    const newState = !aiOverviewEnabled;
+    setAiOverviewEnabled(newState);
+    localStorage.setItem('aiOverviewEnabled', JSON.stringify(newState));
+  };
+
+  // Add search to history
+  const addToSearchHistory = (query) => {
+    if (!query.trim()) return;
+    
+    const updatedHistory = [
+      query.trim(),
+      ...searchHistory.filter(item => item !== query.trim())
+    ].slice(0, 20); // Keep only last 20 searches
+    
+    setSearchHistory(updatedHistory);
+    localStorage.setItem('searchHistory', JSON.stringify(updatedHistory));
+  };
+
+  // Get filtered suggestions based on current input
+  const getFilteredSuggestions = () => {
+    if (!currentInput.trim() || currentInput.length < 2) return [];
+    
+    return searchHistory
+      .filter(item => 
+        item.toLowerCase().includes(currentInput.toLowerCase()) &&
+        item.toLowerCase() !== currentInput.toLowerCase()
+      )
+      .slice(0, 8); // Show max 8 suggestions
+  };
+
+  useImperativeHandle(ref, () => ({
+    resetToHome: () => {
+      setCurrentInput("");
+      setSendDataParam([]);
+      setLoading(false);
+      setHasSearched(false);
+      setSearchQuery("");
+      setShowSuggestions(false);
+    }
+  }));
 
   const getText = (bnText, enText) => {
     return language === 'bn' ? bnText : enText;
@@ -32,8 +94,13 @@ const Main = () => {
   const sendData = async () => {
     if (!currentInput.trim()) return;
     
+    // Add to search history
+    addToSearchHistory(currentInput);
+    setShowSuggestions(false);
+    
     setLoading(true);
     setHasSearched(true);
+    setSearchQuery(currentInput);
     
     const url = "https://google-web-search1.p.rapidapi.com/";
     const options = {
@@ -59,6 +126,34 @@ const Main = () => {
     setLoading(false);
   };
 
+  const handleInputChange = (e) => {
+    const value = e.target.value;
+    setCurrentInput(value);
+    setShowSuggestions(value.length >= 2);
+  };
+
+  const handleSuggestionClick = (suggestion) => {
+    setCurrentInput(suggestion);
+    setShowSuggestions(false);
+    // Auto-search when suggestion is clicked
+    setTimeout(() => {
+      sendData();
+    }, 100);
+  };
+
+  const handleInputFocus = () => {
+    if (currentInput.length >= 2) {
+      setShowSuggestions(true);
+    }
+  };
+
+  const handleInputBlur = () => {
+    // Delay hiding suggestions to allow for clicks
+    setTimeout(() => {
+      setShowSuggestions(false);
+    }, 200);
+  };
+
   return (
     <LanguageContext.Provider value={{ language, getText, setLanguage }}>
       <main className="main-container">
@@ -79,6 +174,24 @@ const Main = () => {
           )}
 
           <div className="search-container">
+            {hasSearched && (
+              <div className="ai-toggle-container">
+                <label className="ai-toggle-label">
+                  <input
+                    type="checkbox"
+                    checked={aiOverviewEnabled}
+                    onChange={toggleAiOverview}
+                    className="ai-toggle-input"
+                  />
+                  <span className="ai-toggle-slider"></span>
+                  <span className="ai-toggle-text">
+                    <i className="ri-robot-line"></i>
+                    {getText('AI সারসংক্ষেপ', 'AI Overview')}
+                  </span>
+                </label>
+              </div>
+            )}
+            
             <div className="search-box">
               <i className="ri-search-line search-icon" />
               <input
@@ -89,16 +202,28 @@ const Main = () => {
                 spellCheck="false"
                 autoCorrect="off"
                 value={currentInput}
-                onChange={(e) => setCurrentInput(e.target.value)}
+                onChange={handleInputChange}
+                onFocus={handleInputFocus}
+                onBlur={handleInputBlur}
                 onKeyUp={(e) => {
                   if (e.key === "Enter") {
                     sendData();
+                  } else if (e.key === "Escape") {
+                    setShowSuggestions(false);
                   }
                 }}
               />
               <button className="search-btn" onClick={sendData} disabled={!currentInput.trim()}>
                 <i className="ri-send-plane-2-line" />
               </button>
+              
+              {showSuggestions && getFilteredSuggestions().length > 0 && (
+                <SearchSuggestions
+                  suggestions={getFilteredSuggestions()}
+                  onSuggestionClick={handleSuggestionClick}
+                  currentInput={currentInput}
+                />
+              )}
             </div>
           </div>
         </div>
@@ -113,7 +238,9 @@ const Main = () => {
             </div>
           ) : (
             <>
-              <MainData sendDataParam={sendDataParam} />
+              {aiOverviewEnabled && (
+                <AIOverview sendDataParam={sendDataParam} searchQuery={searchQuery} />
+              )}
               <MoreResults sendDataParam={sendDataParam} />
               <RelatedKeyWord sendDataParam={sendDataParam} />
             </>
@@ -122,6 +249,8 @@ const Main = () => {
       </main>
     </LanguageContext.Provider>
   );
-};
+});
+
+Main.displayName = 'Main';
 
 export default Main;

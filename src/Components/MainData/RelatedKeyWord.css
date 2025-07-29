@@ -35,16 +35,22 @@
   align-items: center;
   gap: 0.5rem;
   background: white;
-  border: 2px solid rgba(139, 92, 246, 0.1);
+  border: 1px solid #e5e7eb;
   border-radius: 25px;
   padding: 0.75rem 1.25rem;
-  color: #475569;
+  color: var(--text-secondary, #475569);
   font-weight: 500;
   font-size: 0.9rem;
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 2px 10px rgba(139, 92, 246, 0.05);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   font-family: 'Hind Siliguri', 'Inter', sans-serif;
+}
+
+[data-theme="dark"] .keyword-tag {
+  background: #1e293b;
+  border-color: #334155;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
 }
 
 .keyword-tag:hover {
@@ -52,7 +58,7 @@
   color: white;
   border-color: transparent;
   transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(139, 92, 246, 0.25);
+  box-shadow: 0 4px 12px rgba(139, 92, 246, 0.25);
 }
 
 .keyword-text {
