@@ -62,11 +62,11 @@
 .desktop-menu {
   display: flex;
   align-items: center;
-  gap: 1rem; /* Increased for better separation */
+  gap: 0.5rem; /* Tighter gap for mobile */
 }
 
 .nav-link {
-  color: #1e293b; /* Light theme text */
+  color: #8b5cf6; /* Purple text for both themes */
   text-decoration: none;
   font-weight: 600;
   font-size: 0.95rem; /* Slightly larger for readability */
@@ -77,12 +77,7 @@
   position: relative;
 }
 
-[data-theme="dark"] .nav-link {
-  color: #d1d5db; /* Lighter gray for dark theme */
-}
-
 .nav-link:hover {
-  color: #8b5cf6;
   background: rgba(139, 92, 246, 0.1);
   transform: translateY(-1px);
   box-shadow: 0 2px 8px rgba(139, 92, 246, 0.2); /* Subtle hover shadow */
@@ -151,7 +146,7 @@
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  color: #1e293b;
+  color: #8b5cf6; /* Purple text for both themes */
   text-decoration: none;
   font-weight: 600;
   font-size: 1.1rem; /* Slightly larger for mobile */
@@ -160,13 +155,8 @@
   transition: all 0.3s ease;
 }
 
-[data-theme="dark"] .mobile-nav-link {
-  color: #d1d5db;
-}
-
 .mobile-nav-link:hover {
   background: rgba(139, 92, 246, 0.15);
-  color: #8b5cf6;
 }
 
 .mobile-nav-link i {
@@ -176,7 +166,13 @@
 
 @media screen and (max-width: 768px) {
   .desktop-menu {
-    display: none; /* Hide desktop menu on mobile */
+    display: flex; /* Keep desktop menu visible on mobile */
+    gap: 0.3rem; /* Tighter gap for mobile */
+  }
+  
+  .nav-link {
+    font-size: 0.8rem; /* Smaller for mobile */
+    padding: 0.4rem 0.6rem; /* Compact padding */
   }
   
   .mobile-menu-toggle {
@@ -199,6 +195,11 @@
   
   .brand-name {
     font-size: 1.2rem;
+  }
+  
+  .nav-link {
+    font-size: 0.75rem; /* Even smaller for very small screens */
+    padding: 0.3rem 0.5rem;
   }
   
   .mobile-nav-link {
