@@ -1,0 +1,249 @@
+.video-results-section {
+  margin-bottom: 3rem;
+}
+
+.videos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+.video-card {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e5e7eb;
+}
+
+[data-theme="dark"] .video-card {
+  background: #1e293b;
+  border-color: #334155;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.video-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+  border-color: #8b5cf6;
+}
+
+[data-theme="dark"] .video-card:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+}
+
+.video-link {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
+
+.video-thumbnail {
+  position: relative;
+  width: 100%;
+  height: 180px;
+  overflow: hidden;
+  background: #f3f4f6;
+}
+
+[data-theme="dark"] .video-thumbnail {
+  background: #374151;
+}
+
+.video-thumbnail img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.video-card:hover .video-thumbnail img {
+  transform: scale(1.05);
+}
+
+.video-placeholder {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f3f4f6;
+  color: #9ca3af;
+}
+
+[data-theme="dark"] .video-placeholder {
+  background: #374151;
+  color: #6b7280;
+}
+
+.video-placeholder i {
+  font-size: 3rem;
+}
+
+.play-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 60px;
+  height: 60px;
+  background: rgba(0, 0, 0, 0.8);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  transition: all 0.3s ease;
+  opacity: 0.9;
+}
+
+.video-card:hover .play-overlay {
+  background: rgba(139, 92, 246, 0.9);
+  transform: translate(-50%, -50%) scale(1.1);
+}
+
+.play-overlay i {
+  font-size: 1.5rem;
+  margin-left: 2px; /* Slight offset for play icon visual balance */
+}
+
+.video-duration {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.video-content {
+  padding: 1rem;
+}
+
+.video-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #1e293b;
+  margin-bottom: 0.5rem;
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  font-family: 'Hind Siliguri', sans-serif;
+}
+
+[data-theme="dark"] .video-title {
+  color: #e2e8f0;
+}
+
+.video-link:hover .video-title {
+  color: #8b5cf6;
+}
+
+.video-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.video-source {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  color: #64748b;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+[data-theme="dark"] .video-source {
+  color: #94a3b8;
+}
+
+.video-source i {
+  font-size: 0.9rem;
+}
+
+.video-description {
+  color: #64748b;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+[data-theme="dark"] .video-description {
+  color: #94a3b8;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+  .videos-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .video-thumbnail {
+    height: 200px;
+  }
+  
+  .video-content {
+    padding: 0.75rem;
+  }
+  
+  .video-title {
+    font-size: 0.95rem;
+  }
+  
+  .play-overlay {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .play-overlay i {
+    font-size: 1.25rem;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .video-thumbnail {
+    height: 180px;
+  }
+  
+  .video-content {
+    padding: 0.5rem;
+  }
+  
+  .video-title {
+    font-size: 0.9rem;
+  }
+  
+  .video-source {
+    font-size: 0.8rem;
+  }
+  
+  .video-description {
+    font-size: 0.85rem;
+  }
+  
+  .play-overlay {
+    width: 45px;
+    height: 45px;
+  }
+  
+  .play-overlay i {
+    font-size: 1.1rem;
+  }
+}

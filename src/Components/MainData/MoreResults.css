@@ -34,38 +34,38 @@
 }
 
 .results-grid {
-  display: grid;
+  display: flex;
+  flex-direction: column;
   gap: 1.5rem;
 }
 
 .result-card {
-  background: white;
-  border-radius: 12px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  border: 1px solid #e5e7eb;
-  overflow: hidden;
+  background: transparent;
+  border-radius: 0;
+  box-shadow: none;
+  border: none;
+  border-bottom: 1px solid #f1f5f9;
+  overflow: visible;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  padding-bottom: 1.5rem;
 }
 
 [data-theme="dark"] .result-card {
-  background: #1e293b;
-  border-color: #334155;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  background: transparent;
+  border-bottom: 1px solid #334155;
 }
 
 .result-card:hover {
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-  transform: translateY(-3px);
-  border-color: #d1d5db;
+  background: rgba(139, 92, 246, 0.02);
+  transform: none;
 }
 
 [data-theme="dark"] .result-card:hover {
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
-  border-color: #475569;
+  background: rgba(139, 92, 246, 0.05);
 }
 
 .result-content {
-  padding: 1.5rem;
+  padding: 0;
 }
 
 .result-title {
@@ -96,54 +96,16 @@
   font-size: 0.95rem;
 }
 
-.result-footer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding-top: 0.75rem;
-  border-top: 1px solid #f1f5f9;
-}
-
 .result-url {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  color: var(--text-muted, #64748b);
+  color: #1a0dab;
   font-size: 0.85rem;
-}
-
-.result-url i {
-  font-size: 0.9rem;
-}
-
-.result-link {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  color: #8b5cf6;
+  margin-bottom: 0.25rem;
   text-decoration: none;
-  font-weight: 500;
-  font-size: 0.9rem;
-  padding: 0.5rem 1rem;
-  border-radius: 20px;
-  background: rgba(139, 92, 246, 0.05);
-  transition: all 0.3s ease;
+  word-break: break-all;
 }
 
-.result-link:hover {
-  background: rgba(139, 92, 246, 0.1);
-  color: #7c3aed;
-  transform: translateX(2px);
-  box-shadow: 0 2px 8px rgba(139, 92, 246, 0.2);
-}
-
-.result-link i {
-  font-size: 0.8rem;
-  transition: transform 0.3s ease;
-}
-
-.result-link:hover i {
-  transform: translateX(2px);
+[data-theme="dark"] .result-url {
+  color: #8ab4f8;
 }
 
 @media screen and (max-width: 768px) {
@@ -154,16 +116,6 @@
   }
   
   .result-content {
-    padding: 1rem;
-  }
-  
-  .result-footer {
-    flex-direction: column;
-    gap: 0.75rem;
-    align-items: stretch;
-  }
-  
-  .result-link {
-    justify-content: center;
+    padding: 0;
   }
 }

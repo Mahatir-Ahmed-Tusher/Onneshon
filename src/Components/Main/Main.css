@@ -22,13 +22,18 @@
 
 .search-section.compact {
   padding: 0.75rem 2rem;
-  background: transparent;
+  background: white;
   border-bottom: 1px solid #e8eaed;
-  box-shadow: none;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+  position: sticky;
+  top: 0;
+  z-index: 100;
 }
 
 [data-theme="dark"] .search-section.compact {
   border-bottom: 1px solid #334155;
+  background: #0f172a;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .hero-section {
@@ -98,7 +103,7 @@
 
 .search-container {
   width: 100%;
-  max-width: 620px;
+  max-width: 800px;
   margin: 0 auto;
   position: relative;
 }
@@ -107,7 +112,7 @@
   display: flex;
   justify-content: flex-start;
   margin-bottom: 2rem;
-  padding: 0 2rem;
+  padding: 0 1rem;
   max-width: 1200px;
   margin-left: auto;
   margin-right: auto;
@@ -196,10 +201,10 @@
   position: relative;
   width: 100%;
   background: white;
-  border-radius: 24px;
+  border-radius: 28px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   border: 1px solid #dfe1e5;
-  transition: all 0.2s ease-in-out;
+  transition: all 0.3s ease-in-out;
   overflow: hidden;
 }
 
@@ -210,22 +215,24 @@
 }
 
 .search-box:hover {
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-  border-color: rgba(223,225,229,0);
+  box-shadow: 0 4px 16px rgba(139, 92, 246, 0.15), 0 0 0 1px rgba(139, 92, 246, 0.1);
+  border-color: rgba(139, 92, 246, 0.2);
+  transform: translateY(-1px);
 }
 
 .search-box:focus-within {
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-  border-color: rgba(223,225,229,0);
+  box-shadow: 0 6px 24px rgba(139, 92, 246, 0.25), 0 0 0 2px rgba(139, 92, 246, 0.2), 0 0 20px rgba(139, 92, 246, 0.1);
+  border-color: rgba(139, 92, 246, 0.3);
   outline: none;
+  transform: translateY(-2px);
 }
 
 .search-icon {
   position: absolute;
-  left: 14px;
+  left: 18px;
   top: 50%;
   transform: translateY(-50%);
-  font-size: 1.25rem;
+  font-size: 1.35rem;
   color: #9aa0a6;
   z-index: 2;
 }
@@ -236,11 +243,11 @@
 
 .search-input {
   width: 100%;
-  height: 48px;
-  padding: 0 52px 0 46px;
+  height: 56px;
+  padding: 0 60px 0 52px;
   border: none;
   outline: none;
-  font-size: 16px;
+  font-size: 17px;
   font-weight: 400;
   color: #202124;
   background: transparent;
@@ -262,11 +269,11 @@
 
 .search-btn {
   position: absolute;
-  right: 8px;
+  right: 10px;
   top: 50%;
   transform: translateY(-50%);
-  width: 32px;
-  height: 32px;
+  width: 38px;
+  height: 38px;
   border: none;
   border-radius: 50%;
   background: #4285f4;
@@ -275,8 +282,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.2s ease-in-out;
-  opacity: 0.8;
+  transition: all 0.3s ease-in-out;
+  opacity: 0.9;
 }
 
 [data-theme="dark"] .search-btn {
@@ -286,8 +293,8 @@
 .search-btn:hover:not(:disabled) {
   background: #1a73e8;
   opacity: 1;
-  transform: translateY(-50%) scale(1.1);
-  box-shadow: 0 4px 12px rgba(26, 115, 232, 0.3);
+  transform: translateY(-50%) scale(1.15);
+  box-shadow: 0 6px 20px rgba(26, 115, 232, 0.4), 0 0 0 2px rgba(26, 115, 232, 0.1);
 }
 
 [data-theme="dark"] .search-btn:hover:not(:disabled) {
@@ -300,13 +307,13 @@
 }
 
 .search-btn i {
-  font-size: 1rem;
+  font-size: 1.1rem;
 }
 
 .results-section {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 1rem;
 }
 
 .loading-container {
@@ -391,10 +398,16 @@
   z-index: -1;
   background-size: cover;
   background-repeat: no-repeat;
+  transition: opacity 0.3s ease;
 }
 
 .main-container:not([data-theme="dark"]) .more-snow {
   background-image: url('/background.jpg');
+}
+
+/* Hide background when search results are shown */
+.main-container.has-results .more-snow {
+  opacity: 0;
 }
 
 .main-container:not([data-theme="dark"]) .more-snow::before,
@@ -541,6 +554,10 @@
     padding: 1rem;
   }
   
+  .results-section {
+    padding: 0.5rem;
+  }
+  
   .hero-title {
     font-size: 2rem;
     margin-bottom: 0.75rem;
@@ -561,24 +578,24 @@
   }
   
   .search-input {
-    height: 44px;
-    font-size: 14px;
-    padding: 0 40px 0 40px;
+    height: 52px;
+    font-size: 16px;
+    padding: 0 50px 0 48px;
   }
   
   .search-icon {
-    left: 12px;
-    font-size: 1.1rem;
+    left: 16px;
+    font-size: 1.25rem;
   }
   
   .search-btn {
-    width: 28px;
-    height: 28px;
-    right: 8px;
+    width: 34px;
+    height: 34px;
+    right: 9px;
   }
   
   .search-btn i {
-    font-size: 0.9rem;
+    font-size: 1rem;
   }
   
   .suggestive-search-btn {
@@ -599,13 +616,13 @@
   }
   
   .search-input {
-    height: 50px;
-    font-size: 0.95rem;
+    height: 54px;
+    font-size: 16px;
   }
   
   .search-btn {
-    width: 38px;
-    height: 38px;
+    width: 36px;
+    height: 36px;
   }
   
   .search-btn i {
@@ -634,6 +651,14 @@
     transform: translateY(-40px);
   }
   
+  .results-section {
+    padding: 0.25rem;
+  }
+  
+  .search-section.compact {
+    padding: 0.5rem 0.25rem;
+  }
+  
   .hero-title {
     font-size: 1.6rem;
     line-height: 1.1;
@@ -654,20 +679,20 @@
   }
   
   .search-input {
-    height: 47px;
-    font-size: 0.9rem;
+    height: 50px;
+    font-size: 15px;
     padding: 0 3.5rem 0 3rem;
   }
   
   .search-icon {
-    left: 0.8rem;
+    left: 1rem;
     font-size: 1.2rem;
   }
   
   .search-btn {
-    width: 36px;
-    height: 36px;
-    right: 6px;
+    width: 34px;
+    height: 34px;
+    right: 8px;
   }
 }
 
@@ -692,13 +717,46 @@
 }
 
 .search-section.compact .search-container {
-  max-width: 520px;
+  max-width: 680px;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
 }
 
 .search-section.compact .search-box {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  flex: 1;
 }
 
 .search-section.compact .search-input {
-  height: 52px;
+  height: 60px;
+}
+
+/* Google-style compact logo */
+.search-section.compact .hero-logo {
+  display: none;
+}
+
+.compact-logo {
+  display: none;
+  width: 32px;
+  height: 32px;
+}
+
+.search-section.compact .compact-logo {
+  display: block;
+  margin-right: 1rem;
+}
+
+.ai-toggle-container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.search-section.compact .ai-toggle-container {
+  margin-bottom: 0;
+  margin-right: 1rem;
 }

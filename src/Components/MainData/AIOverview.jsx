@@ -19,10 +19,11 @@ const AIOverview = ({ sendDataParam, searchQuery }) => {
   }, [sendDataParam, searchQuery]);
 
   const generateAISummary = async () => {
-    if (!import.meta.env.VITE_GEMINI_API_KEY) {
+    const geminiApiKey = import.meta.env.VITE_GEMINI_API_KEY;
+    if (!geminiApiKey || geminiApiKey.trim() === '') {
       setError(getText(
-        'AI সারসংক্ষেপের জন্য Gemini API কী প্রয়োজন',
-        'Gemini API key required for AI summary'
+        'AI সারসংক্ষেপের জন্য Gemini API কী প্রয়োজন। অনুগ্রহ করে .env ফাইলে VITE_GEMINI_API_KEY যোগ করুন।',
+        'Gemini API key required for AI summary. Please add VITE_GEMINI_API_KEY to your .env file.'
       ));
       return;
     }

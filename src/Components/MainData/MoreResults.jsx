@@ -32,21 +32,8 @@ const MoreResults = ({ sendDataParam }) => {
                 {result?.description}
               </p>
               
-              <div className="result-footer">
-                <div className="result-url">
-                  <i className="ri-external-link-line"></i>
-                  <span>{new URL(result?.url).hostname}</span>
-                </div>
-                
-                <a
-                  href={result?.url}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="result-link"
-                >
-                  {getText('পড়ুন', 'Read More')}
-                  <i className="ri-arrow-right-line"></i>
-                </a>
+              <div className="result-url">
+                <span>{result?.url}</span>
               </div>
             </div>
           </article>
